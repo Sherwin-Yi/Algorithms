@@ -1,0 +1,41 @@
+﻿//   BFS: breadth first searching
+public class graphNode 
+{
+	public String data; 
+	public boolean visited = false;
+	public LinkedList<graphNode> adjacentNodes = new LinkedList<graphNode>();
+	
+	public graphNode(String data)
+	{
+		this.data = data;
+	}
+	public void addAdjacentNode(final graphNode node)
+	{
+		adjacentNodes.add(node);
+		node.adjacentNodes.add(this);
+	}
+}
+public class BFS 
+{
+	public static void breadthFirstTraversal(graphNode rootNode)
+	{
+		Queue q = new LinkedList<graphNode>();
+		
+		q.add(rootNode);
+		rootNode.visited = true;
+		while(!q.isEmpty())
+		{
+			graphNode n = (graphNode) q.poll();
+			System.out.println(n.data);
+			
+			for(graphNode adj : n.adjacentNodes)
+			{
+				if(!adj.visited)
+					{
+					adj.visited = true;
+				    q.add(adj);
+					}
+			}
+		}
+	}
+}
