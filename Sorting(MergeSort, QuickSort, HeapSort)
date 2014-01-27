@@ -1,0 +1,101 @@
+   void quickSort(int[]list, int start, int end)
+   {
+	  if(start < end)
+	  {
+	   // Part 1: Partition the array into 2 components. 
+	   int mid = partition(list, start, end);
+	   //System.out.println(mid);
+	   // Part 2: Handle the first component. 
+	   quickSort(list, start, mid);
+	   // Part 3: handle the second component. 
+	   quickSort(list, mid+1, end);
+	   //Partition
+	  }
+   }
+   int partition(int[] list, int start, int end)
+	   {
+		   int pivot = list[start];
+		   int i = start; int j = end;
+		   while(i<j)
+		   {
+			   while(list[i] < pivot) i++;
+			   while(list[j] > pivot) j--;
+			   if(i<j) 
+			   {
+				   int tmp = list[i];
+				   list[i] = list[j];
+				   list[j] = tmp;
+				   			   }
+		   }
+		   return j;
+	   }
+******************************************************************
+// MergeSort
+   public void mergesort(int[ ] data, int first, int end)
+   {
+      int n1; // Size of the first half of the array
+      int n2; // Size of the second half of the array
+
+      if (n > 1)
+      {
+         // Compute sizes of the two halves
+         n1 = n / 2;
+         n2 = n - n1;
+
+         mergesort(data, first, n1);      // Sort data[first] through data[first+n1-1]
+         mergesort(data, first + n1, end); // Sort data[first+n1] to the end
+
+         // Merge the two sorted halves.
+         merge(data, first, n1, n2);
+      }
+   } 
+  
+   private  void merge(int[ ] data, int first, int n1, int n2)
+     {
+      int[ ] temp = new int[n1+n2]; // Allocate the temporary array
+      int copied  = 0; // Number of elements copied from data to temp
+      int copied1 = 0; // Number copied from the first half of data
+      int copied2 = 0; // Number copied from the second half of data
+      int i;           // Array index to copy from temp back into data
+      // Merge elements, copying from two halves of data to the temporary array.
+      while ((copied1 < n1) && (copied2 < n2))
+      {
+         if (data[first + copied1] < data[first + n1 + copied2])
+            temp[copied++] = data[first + (copied1++)];
+         else
+            temp[copied++] = data[first + n1 + (copied2++)];
+      }
+      // Copy any remaining entries in the left and right subarrays.
+      while (copied1 < n1) temp[copied++] = data[first + (copied1++)];
+      while (copied2 < n2) temp[copied++] = data[first + n1 + (copied2++)];
+      // Copy from temp back to the data array.
+      for (i = 0; i < n1+n2; i++) data[first + i] = temp[i];
+   } // merge()
+   *****************************************************************************
+   	public static void heapSort(int[] list)
+	{
+		int start = 0, end = list.length;
+		while(start < end)
+		{
+			//part one:  heapify the tree. 
+			heapfy(list, start, end);
+			//part two: remove the root element. 
+			int largest = list[0];
+			//part three: move the last element to the root. 
+			list[0] = list[end];
+			end --;
+		}
+	}
+	public static void heapfy(int[] list, int start, int end)
+	{
+		for(int i = end; i > start; i--)
+		{
+			int father_id = 0;
+			if(i%2 == 0)
+				father_id = i/2;
+			else 
+				father_id = (i+1)/2;
+			if(list[i] > list[father_id])
+				swap(list[i], list[father_id]);
+		}
+	}
